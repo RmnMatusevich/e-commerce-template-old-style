@@ -1,4 +1,4 @@
-### A shopping cart built with React, Redux (with Typescript), Material-UI, Node, MongoDB, Express
+### A shopping cart built with React, Redux (with Typescript), Material-UI, Node, MongoDB, Express [Old code style]
 
 #### To install locally
 
@@ -28,13 +28,6 @@ Start MongoDB in your local machine
 
 ```js
 sudo service mongod start
-```
-
-In server.js after `mongoose.connect` uncomment (if they are commented out) these two lines to seed products in your database:
-
-```js
-const seedProducts = require('./seeds/products.js');
-seedProducts();
 ```
 
 cd into ./client and build the client:
