@@ -75,6 +75,7 @@ class Cart extends React.Component<Props, State> {
 
   render() {
     const { cart } = this.props;
+    console.log({ cart });
     const cartExists = cart.isLoaded && !cart.error && cart.items.length;
 
     return (
@@ -99,8 +100,8 @@ class Cart extends React.Component<Props, State> {
                             (acc += item.product.info.price * item.quantity!),
                           0
                         )
-                      ).format("$0,0.00")
-                    : numeral(0).format("$0,0.00")}
+                      ).format("0,0.00") + " руб"
+                    : numeral(0).format("0,0.00") + " руб"}
                 </span>
               </p>
             </div>
@@ -180,13 +181,14 @@ class Cart extends React.Component<Props, State> {
                           </Link>
                         </td>
                         <td>
-                          {numeral(item.product.info.price).format("$0,0.00")}
+                          {numeral(item.product.info.price).format("0,0.00") +
+                            " руб"}
                         </td>
                         <td>{item.quantity}</td>
                         <td>
                           {numeral(
                             item.product.info.price * item.quantity!
-                          ).format("$0,0.00")}
+                          ).format("0,0.00") + " руб"}
                         </td>
                         <td>
                           <button

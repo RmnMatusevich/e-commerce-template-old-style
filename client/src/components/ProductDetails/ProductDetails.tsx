@@ -146,7 +146,7 @@ class ProductDetails extends React.Component<Props, State> {
             <div className="price">
               <span className="price-text">Цена: </span>
               <span className="price-num">
-                {numeral(info.price).format("$0,0.00")}
+                {numeral(info.price).format("0,0.00")} руб.
               </span>
             </div>
             <div className="quantity">

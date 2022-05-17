@@ -3,10 +3,11 @@ import RaisedButton from "material-ui/RaisedButton";
 import Drawer from "material-ui/Drawer";
 import SelectField from "material-ui/SelectField";
 import MenuItem from "material-ui/MenuItem";
-import { ICatalogProduct } from "@typings/state/index";
+import { ICatalogProduct, IUser } from "@typings/state/index";
 import FiltersList from "../FiltersList";
 import Product from "../Product";
 import "@styles/Products.css";
+import ProductModal from "../ProductModal";
 
 interface Props {
   catalogLoaded: boolean;
@@ -15,17 +16,24 @@ interface Props {
   initCatalog: () => void;
   clearFilters: () => void;
   setSortBy: (value: string) => void;
+  user: IUser;
+  getUser: () => any;
+  isAdmin: boolean;
 }
 
 interface State {
   drawerOpen: boolean;
   value: string;
+  productModalOpen: boolean;
+  currentEditItem?: ICatalogProduct;
 }
 
 export class Products extends React.Component<Props, State> {
   state = {
     drawerOpen: false,
     value: this.props.sortBy || "Name: A-Z",
+    productModalOpen: false,
+    currentEditItem: undefined,
   };
 
   toggleDrawer = () => {
@@ -37,12 +45,24 @@ export class Products extends React.Component<Props, State> {
     this.setState({ value });
   };
 
-  componentWillMount() {
+  toggleProductModal = (item?: ICatalogProduct) => {
+    this.setState((prevState: State) => ({
+      productModalOpen: !prevState.productModalOpen,
+      currentEditItem: !prevState.productModalOpen
+        ? item
+          ? item
+          : undefined
+        : undefined,
+    }));
+  };
+
+  componentDidMount() {
     this.props.initCatalog();
+    this.props.getUser();
   }
 
   render() {
-    const { catalogLoaded, catalog, clearFilters } = this.props;
+    const { catalogLoaded, catalog, clearFilters, user } = this.props;
 
     if (!catalogLoaded) {
       return (
@@ -54,6 +74,14 @@ export class Products extends React.Component<Props, State> {
     } else
       return (
         <div className="products">
+          {this.props.isAdmin && (
+            <RaisedButton
+              className="btn"
+              label="Добавить продукт"
+              primary={true}
+              onClick={() => this.toggleProductModal()}
+            />
+          )}
           <div className="products-handle">
             <div className="products-found">
               <span>
@@ -109,11 +137,23 @@ export class Products extends React.Component<Props, State> {
           </div>
           {catalog.length ? (
             catalog.map((item) => {
-              return <Product key={item.info.name} item={item} />;
+              return (
+                <Product
+                  key={item.info.name}
+                  item={item}
+                  onEdit={this.toggleProductModal}
+                  isAdmin={this.props.isAdmin}
+                />
+              );
             })
           ) : (
             <h1 className="no-products">Нет результатов.</h1>
           )}
+          <ProductModal
+            isOpen={this.state.productModalOpen}
+            editItem={this.state.currentEditItem}
+            onRequestClose={this.toggleProductModal}
+          />
         </div>
       );
   }

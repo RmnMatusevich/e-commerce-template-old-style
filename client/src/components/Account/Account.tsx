@@ -99,12 +99,14 @@ class Account extends React.Component<Props, State> {
                           <tr key={order.name}>
                             <td>{moment(order.dateCreated).format("ll")}</td>
                             <td>{order.name}</td>
-                            <td>{numeral(order.price).format("$0,0.00")}</td>
+                            <td>
+                              {numeral(order.price).format("0,0.00") + " руб"}
+                            </td>
                             <td>{order.quantity}</td>
                             <td>
                               {numeral(
                                 parseInt(order.price) * parseInt(order.quantity)
-                              ).format("$0,0.00")}
+                              ).format("0,0.00") + " руб"}
                             </td>
                           </tr>
                         );

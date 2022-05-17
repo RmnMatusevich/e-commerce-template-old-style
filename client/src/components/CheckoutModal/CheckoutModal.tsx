@@ -37,12 +37,14 @@ const CheckoutModal: React.SFC<ModalProps> = ({
               return (
                 <tr key={item.product.info.name}>
                   <td>{item.product.info.name}</td>
-                  <td>{numeral(item.product.info.price).format("$0,0.00")}</td>
+                  <td>
+                    {numeral(item.product.info.price).format("0,0.00") + " руб"}
+                  </td>
                   <td>{item.quantity}</td>
                   <td>
                     {numeral(item.product.info.price * item.quantity!).format(
-                      "$0,0.00"
-                    )}
+                      "0,0.00"
+                    ) + " руб"}
                   </td>
                 </tr>
               );
@@ -59,7 +61,7 @@ const CheckoutModal: React.SFC<ModalProps> = ({
                   (acc += item.product.info.price * item.quantity!),
                 0
               )
-          ).format("$0,0.00")}
+          ).format("0,0.00") + " руб"}
         </span>
       </p>
       <div className="btns">

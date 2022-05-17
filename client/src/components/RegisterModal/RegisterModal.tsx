@@ -16,7 +16,7 @@ const RegisterModal = ({
     onRequestClose={onRequestClose}
   >
     <form className="form" action="/auth/register" method="POST">
-      <h1>Register</h1>
+      <h1>Регистрация</h1>
       <TextField
         hintText="Введите имя"
         floatingLabelText="Имя"

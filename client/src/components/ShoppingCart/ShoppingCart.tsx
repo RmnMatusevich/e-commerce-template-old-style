@@ -11,6 +11,7 @@ import ProductDetails from "../ProductDetails";
 import Footer from "../Footer";
 import NotFound from "../NotFound";
 import "@styles/ShoppingCart.css";
+import Admin from "../Admin";
 // import { darkBaseTheme } from "material-ui/styles";
 
 // const theme = createMuiTheme({
@@ -27,9 +28,6 @@ const ShoppingCart = () => (
         palette: {
           primary1Color: "#0d68e0",
           accent1Color: "#6babff",
-          // secondaryTextColor: "black",
-          // accent2Color: "red",
-          // accent3Color: "red",
         },
       })}
     >
@@ -40,6 +38,7 @@ const ShoppingCart = () => (
           <Route path="/account" component={Account} />
           <Route path="/cart" component={Cart} />
           <Route path="/product/:id" component={ProductDetails} />
+          <Route path="/admin" component={Admin} />
           <Route component={NotFound} />
         </Switch>
         <Route component={Footer} />

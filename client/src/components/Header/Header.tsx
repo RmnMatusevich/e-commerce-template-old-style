@@ -54,9 +54,6 @@ class Header extends React.Component<Props> {
       <div className="header">
         <img src="/img/logo.svg" />
         <AppBar
-          // style={{ background: "#0d68e0" }}
-          // className="title"
-          // title="e-group"
           onTitleClick={() => history.push("/")}
           showMenuIconButton={false}
           zDepth={0}
